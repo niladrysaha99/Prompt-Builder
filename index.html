@@ -18,17 +18,30 @@
 
 <h1>PromptForge</h1>
 
+
+<!-- TABS -->
+
 <div class="tabs">
 
-<div class="tab active" data-tab="builder">✨ Prompt Builder</div>
-<div class="tab" data-tab="mask">🖌 Image Mask</div>
+<button class="tab active" data-tab="builder">
+✨ Prompt Builder
+</button>
+
+<button class="tab" data-tab="mask">
+🖌 Image Mask
+</button>
 
 </div>
 
 
-<!-- PROMPT BUILDER -->
+<!-- ================= PROMPT BUILDER ================= -->
 
-<div class="tab-content active" id="builder">
+<div id="builder" class="tab-content active">
+
+
+<!-- ================= IMAGE REFERENCES ================= -->
+
+<h2>Reference Images</h2>
 
 <div class="reference-section">
 
@@ -49,7 +62,7 @@ Click or drag & drop a character image
 
 </div>
 
-<div class="ai-result" id="characterPrompt"></div>
+<div id="characterPrompt" class="ai-result"></div>
 
 </div>
 
@@ -70,7 +83,7 @@ Click or drag & drop a background image
 
 </div>
 
-<div class="ai-result" id="backgroundPrompt"></div>
+<div id="backgroundPrompt" class="ai-result"></div>
 
 </div>
 
@@ -91,23 +104,152 @@ Click or drag & drop an element image
 
 </div>
 
-<div class="ai-result" id="elementPrompt"></div>
+<div id="elementPrompt" class="ai-result"></div>
 
 </div>
 
 </div>
 
 
-<!-- SUBJECT -->
+<!-- ================= SUBJECT ================= -->
 
-<div class="input-group">
+<h2>Subject</h2>
 
-<label>Subject</label>
+<input
+type="text"
+id="subjectInput"
+placeholder="Example: futuristic samurai warrior"
+/>
 
-<input type="text" id="subjectInput" placeholder="Example: futuristic samurai warrior">
 
-</div>
+<!-- ================= CAMERA ================= -->
 
+<h2>Camera Settings</h2>
+
+<select id="cameraBody">
+
+<option value="">Camera Body</option>
+<option>Canon EOS R5</option>
+<option>Sony A7R IV</option>
+<option>Nikon Z9</option>
+
+</select>
+
+
+<select id="lens">
+
+<option value="">Lens</option>
+<option>35mm</option>
+<option>50mm</option>
+<option>85mm</option>
+<option>135mm</option>
+
+</select>
+
+
+<select id="cameraAngle">
+
+<option value="">Camera Angle</option>
+<option>Eye Level</option>
+<option>Low Angle</option>
+<option>High Angle</option>
+<option>Drone View</option>
+
+</select>
+
+
+<!-- ================= ASPECT RATIO ================= -->
+
+<h2>Aspect Ratio</h2>
+
+<select id="aspectRatio">
+
+<option>1:1</option>
+<option>16:9</option>
+<option>9:16</option>
+<option>3:2</option>
+<option>4:5</option>
+
+</select>
+
+
+<!-- ================= STYLE ================= -->
+
+<h2>Lighting</h2>
+
+<select id="lighting">
+
+<option>Cinematic</option>
+<option>Soft Light</option>
+<option>Studio Light</option>
+<option>Golden Hour</option>
+
+</select>
+
+
+<h2>Art Style</h2>
+
+<select id="artStyle">
+
+<option>Photorealistic</option>
+<option>Anime</option>
+<option>Concept Art</option>
+<option>Digital Painting</option>
+
+</select>
+
+
+<h2>Mood</h2>
+
+<select id="mood">
+
+<option>Dramatic</option>
+<option>Dark</option>
+<option>Peaceful</option>
+<option>Epic</option>
+
+</select>
+
+
+<h2>Environment</h2>
+
+<select id="environment">
+
+<option>Forest</option>
+<option>City</option>
+<option>Cyberpunk</option>
+<option>Mountain</option>
+
+</select>
+
+
+<h2>Quality</h2>
+
+<select id="quality">
+
+<option>Ultra detailed</option>
+<option>8k</option>
+<option>Photorealistic</option>
+<option>Sharp focus</option>
+
+</select>
+
+
+<!-- ================= PLATFORM ================= -->
+
+<h2>Platform</h2>
+
+<select id="platform">
+
+<option>Midjourney</option>
+<option>DALL·E</option>
+<option>Stable Diffusion</option>
+<option>Flux</option>
+
+</select>
+
+
+<!-- ================= GENERATE ================= -->
 
 <button id="generatePrompt">
 
@@ -116,29 +258,27 @@ Generate Prompt
 </button>
 
 
-<div class="prompt-output">
-
-<h3>Final Prompt</h3>
+<h2>Generated Prompt</h2>
 
 <pre id="promptOutput"></pre>
 
-</div>
 
 </div>
 
 
-<!-- IMAGE MASK -->
+<!-- ================= IMAGE MASK ================= -->
 
-<div class="tab-content" id="mask">
+<div id="mask" class="tab-content">
 
 <h2>Image Mask Tool</h2>
 
-<p>Mask canvas can be added later.</p>
+<p>Upload image and draw mask here.</p>
 
 </div>
 
 
 </div>
+
 
 <script src="js/app.js"></script>
 
