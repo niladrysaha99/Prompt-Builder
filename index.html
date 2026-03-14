@@ -29,6 +29,7 @@
   <!-- TAB NAV -->
   <nav class="tab-nav">
     <button class="tab-btn active" onclick="switchTab('builder')">✦ Prompt Builder</button>
+    <button class="tab-btn" onclick="switchTab('refs')">🖼️ References</button>
     <button class="tab-btn" onclick="switchTab('mask')">🖌️ Image Mask</button>
   </nav>
 
@@ -259,7 +260,237 @@
           </div>
         </div>
 
+        <!-- Image References -->
+        <div class="card ref-card">
+          <div class="ref-header">
+            <span class="section-label" style="margin:0">🖼️ Image References</span>
+            <span class="ref-hint">AI auto-generates prompt on upload</span>
+          </div>
+
+          <!-- Character Reference -->
+          <div class="ref-block" id="ref-character">
+            <div class="ref-block-label">
+              <span class="ref-icon">👤</span>
+              <span>Character Reference</span>
+              <span class="ref-count-badge" id="char-ref-badge" style="display:none">1</span>
+            </div>
+            <label class="ref-upload-zone" id="char-upload-zone">
+              <input type="file" accept="image/*" style="display:none" id="char-file-input" onchange="loadRef('character', event)"/>
+              <div class="ref-upload-inner">
+                <div class="ref-upload-icon">＋</div>
+                <div class="ref-upload-text">Upload character reference</div>
+                <div class="ref-upload-hint">JPG, PNG, WEBP</div>
+              </div>
+            </label>
+            <div class="ref-preview-single" id="char-preview-single" style="display:none">
+              <img id="char-preview-img" src="" alt="character ref"/>
+              <button class="ref-preview-remove" onclick="clearRef('character')">× Remove</button>
+            </div>
+            <div class="ref-ai-output" id="char-ai-output" style="display:none">
+              <div class="ref-ai-topbar">
+                <span class="ref-ai-label">✦ AI Prompt</span>
+                <button class="ref-ai-copy" onclick="copyRefAI('character')">Copy</button>
+              </div>
+              <div class="ref-ai-text" id="char-ai-text"></div>
+            </div>
+          </div>
+
+          <div class="ref-divider"></div>
+
+          <!-- Background Reference -->
+          <div class="ref-block" id="ref-background">
+            <div class="ref-block-label">
+              <span class="ref-icon">🌄</span>
+              <span>Background Reference</span>
+              <span class="ref-count-badge" id="bg-ref-badge" style="display:none">1</span>
+            </div>
+            <label class="ref-upload-zone" id="bg-upload-zone">
+              <input type="file" accept="image/*" style="display:none" id="bg-file-input" onchange="loadRef('background', event)"/>
+              <div class="ref-upload-inner">
+                <div class="ref-upload-icon">＋</div>
+                <div class="ref-upload-text">Upload background reference</div>
+                <div class="ref-upload-hint">JPG, PNG, WEBP</div>
+              </div>
+            </label>
+            <div class="ref-preview-single" id="bg-preview-single" style="display:none">
+              <img id="bg-preview-img" src="" alt="background ref"/>
+              <button class="ref-preview-remove" onclick="clearRef('background')">× Remove</button>
+            </div>
+            <div class="ref-ai-output" id="bg-ai-output" style="display:none">
+              <div class="ref-ai-topbar">
+                <span class="ref-ai-label">✦ AI Prompt</span>
+                <button class="ref-ai-copy" onclick="copyRefAI('background')">Copy</button>
+              </div>
+              <div class="ref-ai-text" id="bg-ai-text"></div>
+            </div>
+          </div>
+
+          <div class="ref-divider"></div>
+
+          <!-- Element Reference -->
+          <div class="ref-block" id="ref-element">
+            <div class="ref-block-label">
+              <span class="ref-icon">✦</span>
+              <span>Element Reference</span>
+              <span class="ref-count-badge" id="el-ref-badge" style="display:none">1</span>
+            </div>
+            <label class="ref-upload-zone" id="el-upload-zone">
+              <input type="file" accept="image/*" style="display:none" id="el-file-input" onchange="loadRef('element', event)"/>
+              <div class="ref-upload-inner">
+                <div class="ref-upload-icon">＋</div>
+                <div class="ref-upload-text">Upload element reference</div>
+                <div class="ref-upload-hint">Props, objects, textures</div>
+              </div>
+            </label>
+            <div class="ref-preview-single" id="el-preview-single" style="display:none">
+              <img id="el-preview-img" src="" alt="element ref"/>
+              <button class="ref-preview-remove" onclick="clearRef('element')">× Remove</button>
+            </div>
+            <div class="ref-ai-output" id="el-ai-output" style="display:none">
+              <div class="ref-ai-topbar">
+                <span class="ref-ai-label">✦ AI Prompt</span>
+                <button class="ref-ai-copy" onclick="copyRefAI('element')">Copy</button>
+              </div>
+              <div class="ref-ai-text" id="el-ai-text"></div>
+            </div>
+          </div>
+
+        </div>
+
       </section>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- TAB: REFERENCES FULL VIEW                   -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div id="tab-refs" class="tab-content">
+    <div class="refs-full-grid">
+
+      <!-- Character -->
+      <div class="card ref-full-card">
+        <div class="ref-full-header">
+          <span class="ref-full-icon">👤</span>
+          <div>
+            <div class="ref-full-title">Character Reference</div>
+            <div class="ref-full-sub">Upload a character image — AI generates a prompt instantly</div>
+          </div>
+        </div>
+        <label class="ref-full-zone" for="char-file-input2">
+          <input type="file" accept="image/*" style="display:none" id="char-file-input2" onchange="loadRef('character', event)"/>
+          <div class="ref-full-zone-inner">
+            <div class="ref-full-zone-icon">↑</div>
+            <div>Click or drag & drop a character image</div>
+            <div class="ref-full-zone-hint">JPG, PNG, WEBP</div>
+          </div>
+        </label>
+        <div class="ref-full-preview-wrap" id="char-full-preview-wrap" style="display:none">
+          <img id="char-full-preview-img" src="" alt="character"/>
+          <button class="ref-full-remove-btn" onclick="clearRef('character')">× Remove</button>
+        </div>
+        <div class="ref-full-ai-box" id="char-full-ai-box" style="display:none">
+          <div class="ref-ai-topbar">
+            <span class="ref-ai-label">✦ AI Generated Prompt</span>
+            <button class="ref-ai-copy" onclick="copyRefAI('character')">Copy</button>
+          </div>
+          <div class="ref-full-ai-text" id="char-full-ai-text"></div>
+          <div class="ref-full-ai-actions">
+            <button class="btn-mask-action green" onclick="useRefPrompt('character')">✦ Use in Main Prompt</button>
+            <button class="btn-mask-action" onclick="regenRefAI('character')">↺ Regenerate</button>
+          </div>
+        </div>
+        <div class="ref-tips">
+          <span class="ref-tip">💡 Works best with clear face/body shots</span>
+        </div>
+      </div>
+
+      <!-- Background -->
+      <div class="card ref-full-card">
+        <div class="ref-full-header">
+          <span class="ref-full-icon">🌄</span>
+          <div>
+            <div class="ref-full-title">Background Reference</div>
+            <div class="ref-full-sub">Upload a background image — AI generates a prompt instantly</div>
+          </div>
+        </div>
+        <label class="ref-full-zone" for="bg-file-input2">
+          <input type="file" accept="image/*" style="display:none" id="bg-file-input2" onchange="loadRef('background', event)"/>
+          <div class="ref-full-zone-inner">
+            <div class="ref-full-zone-icon">↑</div>
+            <div>Click or drag & drop a background image</div>
+            <div class="ref-full-zone-hint">JPG, PNG, WEBP</div>
+          </div>
+        </label>
+        <div class="ref-full-preview-wrap" id="bg-full-preview-wrap" style="display:none">
+          <img id="bg-full-preview-img" src="" alt="background"/>
+          <button class="ref-full-remove-btn" onclick="clearRef('background')">× Remove</button>
+        </div>
+        <div class="ref-full-ai-box" id="bg-full-ai-box" style="display:none">
+          <div class="ref-ai-topbar">
+            <span class="ref-ai-label">✦ AI Generated Prompt</span>
+            <button class="ref-ai-copy" onclick="copyRefAI('background')">Copy</button>
+          </div>
+          <div class="ref-full-ai-text" id="bg-full-ai-text"></div>
+          <div class="ref-full-ai-actions">
+            <button class="btn-mask-action green" onclick="useRefPrompt('background')">✦ Use in Main Prompt</button>
+            <button class="btn-mask-action" onclick="regenRefAI('background')">↺ Regenerate</button>
+          </div>
+        </div>
+        <div class="ref-tips">
+          <span class="ref-tip">💡 Landscapes, interiors, cityscapes all work great</span>
+        </div>
+      </div>
+
+      <!-- Element -->
+      <div class="card ref-full-card">
+        <div class="ref-full-header">
+          <span class="ref-full-icon">✦</span>
+          <div>
+            <div class="ref-full-title">Element Reference</div>
+            <div class="ref-full-sub">Upload a prop/object image — AI generates a prompt instantly</div>
+          </div>
+        </div>
+        <label class="ref-full-zone" for="el-file-input2">
+          <input type="file" accept="image/*" style="display:none" id="el-file-input2" onchange="loadRef('element', event)"/>
+          <div class="ref-full-zone-inner">
+            <div class="ref-full-zone-icon">↑</div>
+            <div>Click or drag & drop an element image</div>
+            <div class="ref-full-zone-hint">JPG, PNG, WEBP</div>
+          </div>
+        </label>
+        <div class="ref-full-preview-wrap" id="el-full-preview-wrap" style="display:none">
+          <img id="el-full-preview-img" src="" alt="element"/>
+          <button class="ref-full-remove-btn" onclick="clearRef('element')">× Remove</button>
+        </div>
+        <div class="ref-full-ai-box" id="el-full-ai-box" style="display:none">
+          <div class="ref-ai-topbar">
+            <span class="ref-ai-label">✦ AI Generated Prompt</span>
+            <button class="ref-ai-copy" onclick="copyRefAI('element')">Copy</button>
+          </div>
+          <div class="ref-full-ai-text" id="el-full-ai-text"></div>
+          <div class="ref-full-ai-actions">
+            <button class="btn-mask-action green" onclick="useRefPrompt('element')">✦ Use in Main Prompt</button>
+            <button class="btn-mask-action" onclick="regenRefAI('element')">↺ Regenerate</button>
+          </div>
+        </div>
+        <div class="ref-tips">
+          <span class="ref-tip">💡 Objects, textures, materials, weapons, props</span>
+        </div>
+      </div>
+
+      <!-- Combined -->
+      <div class="card ref-combined-card">
+        <label class="section-label">🔗 Combined Reference Prompt</label>
+        <div class="raw-prompt" id="combined-ref-prompt">
+          <span class="output-placeholder">Upload references — AI prompts will combine here automatically...</span>
+        </div>
+        <div class="ref-combined-actions">
+          <button class="btn-mask-action green" onclick="copyRefPrompt()">📋 Copy Combined Prompt</button>
+          <button class="btn-mask-action green" onclick="useAllRefsInPrompt()">✦ Use All in Main Prompt</button>
+          <button class="btn-mask-action" onclick="clearAllRefs()">🗑 Clear All</button>
+        </div>
+      </div>
+
     </div>
   </div>
 
