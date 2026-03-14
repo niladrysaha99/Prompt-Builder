@@ -20,27 +20,10 @@
 
 <!-- PROMPT STRUCTURE -->
 
-<div class="prompt-structure">
-
-<span class="camera">Camera</span> →
-<span class="subject">Subject</span> →
-<span class="action">Action</span> →
-<span class="environment">Environment</span> →
-<span class="lighting">Lighting</span> →
-<span class="texture">Texture</span>
-
-</div>
 
 
-<!-- API KEY -->
 
-<div class="apikey-box">
 
-<input id="apikey" placeholder="Enter Gemini API key">
-
-<button onclick="saveKey()">Save Key</button>
-
-</div>
 
 
 <!-- REFERENCE UPLOAD -->
@@ -145,7 +128,73 @@ Upload Object
 </div>
 
 
-<button id="generatePrompt">
+<button id="async function generatePrompt(){
+
+const subject=document.getElementById("subjectInput").value
+const action=document.getElementById("actionInput").value
+const environment=document.getElementById("environmentText").value
+
+let tags=[]
+document.querySelectorAll(".pill.active").forEach(p=>tags.push(p.innerText))
+
+const aiPrompt=`
+
+You are an AI cinematic prompt engineer.
+
+Generate a cinematic prompt using this internal structure:
+
+Camera → Subject → Action → Environment → Lighting → Texture
+
+Subject: ${subject}
+Action: ${action}
+Environment: ${environment}
+Style tags: ${tags.join(", ")}
+
+Rules:
+- cinematic language
+- under 1000 characters
+- Higgsfield friendly
+- concise wording
+
+Return JSON format only:
+
+{
+ "camera":"",
+ "subject":"",
+ "action":"",
+ "environment":"",
+ "lighting":"",
+ "texture":"",
+ "final_prompt":""
+}
+
+`
+
+const body={
+contents:[
+{
+parts:[{text:aiPrompt}]
+}
+]
+}
+
+const res=await fetch(
+`https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent?key=${API_KEY}`,
+{
+method:"POST",
+headers:{ "Content-Type":"application/json"},
+body:JSON.stringify(body)
+})
+
+const data=await res.json()
+
+const result=data.candidates[0].content.parts[0].text
+
+document.getElementById("promptOutput").innerText=result
+
+saveHistory(result)
+
+}">
 
 Generate AI Prompt
 
