@@ -1,260 +1,389 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>PromptForge — AI Image Prompt Builder</title>
+  <title>Get Your Prompt</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
 
-  <!-- Background Grid -->
-  <div class="bg-grid"></div>
-  <div class="bg-orb orb1"></div>
-  <div class="bg-orb orb2"></div>
+<div class="noise"></div>
 
-  <!-- Header -->
-  <header class="header">
-    <div class="logo">
-      <span class="logo-icon">⬡</span>
-      <span class="logo-text">PromptForge</span>
+<div class="app">
+
+  <!-- HEADER -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <span class="logo-mark">⬡</span>
+      <h1 class="logo-title">GET YOUR <span class="logo-accent">PROMPT</span></h1>
     </div>
-    <nav class="header-nav">
-      <a href="#builder">Builder</a>
-      <a href="#presets">Presets</a>
-      <a href="https://github.com" target="_blank" class="btn-github">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-        GitHub
-      </a>
-    </nav>
+    <a href="https://github.com/niladrysaha99/prompt-builder" target="_blank" class="gh-link">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+      GitHub
+    </a>
   </header>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero-tag">AI-Powered Prompt Engineering</div>
-    <h1 class="hero-title">Build <em>Perfect</em><br/>Image Prompts</h1>
-    <p class="hero-sub">Craft stunning AI image prompts for Midjourney, DALL·E, Stable Diffusion & Flux — visually, intuitively, fast.</p>
-    <a href="#builder" class="hero-cta">Start Building <span>↓</span></a>
-  </section>
+  <!-- TAB NAV -->
+  <nav class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab('builder')">✦ Prompt Builder</button>
+    <button class="tab-btn" onclick="switchTab('mask')">🖌️ Image Mask</button>
+  </nav>
 
-  <!-- Builder -->
-  <main class="builder" id="builder">
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- TAB 1: PROMPT BUILDER                       -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div id="tab-builder" class="tab-content active">
+    <div class="main-grid">
 
-    <!-- Left Panel: Controls -->
-    <section class="panel panel-controls">
-      <h2 class="panel-title">Compose</h2>
+      <!-- LEFT COLUMN -->
+      <section class="col-left">
 
-      <!-- Subject -->
-      <div class="field-group">
-        <label>Subject / Main Idea</label>
-        <textarea id="subject" placeholder="e.g. a lone astronaut standing on Mars, holding a glowing lantern..." rows="3"></textarea>
-      </div>
-
-      <!-- Style -->
-      <div class="field-group">
-        <label>Art Style</label>
-        <div class="tag-grid" id="styleGrid">
-          <button class="tag" data-cat="style" data-val="photorealistic">Photorealistic</button>
-          <button class="tag" data-cat="style" data-val="digital art">Digital Art</button>
-          <button class="tag" data-cat="style" data-val="oil painting">Oil Painting</button>
-          <button class="tag" data-cat="style" data-val="anime">Anime</button>
-          <button class="tag" data-cat="style" data-val="watercolor">Watercolor</button>
-          <button class="tag" data-cat="style" data-val="concept art">Concept Art</button>
-          <button class="tag" data-cat="style" data-val="cyberpunk">Cyberpunk</button>
-          <button class="tag" data-cat="style" data-val="impressionist">Impressionist</button>
-          <button class="tag" data-cat="style" data-val="3D render">3D Render</button>
-          <button class="tag" data-cat="style" data-val="pixel art">Pixel Art</button>
-          <button class="tag" data-cat="style" data-val="comic book">Comic Book</button>
-          <button class="tag" data-cat="style" data-val="surrealism">Surrealism</button>
+        <div class="card">
+          <label class="section-label">Describe your image idea</label>
+          <textarea id="subject" class="subject-input" placeholder="e.g. A lone astronaut on Mars, dust storm approaching, lantern in hand..."></textarea>
         </div>
-      </div>
 
-      <!-- Mood -->
-      <div class="field-group">
-        <label>Mood / Atmosphere</label>
-        <div class="tag-grid" id="moodGrid">
-          <button class="tag" data-cat="mood" data-val="dramatic">Dramatic</button>
-          <button class="tag" data-cat="mood" data-val="ethereal">Ethereal</button>
-          <button class="tag" data-cat="mood" data-val="peaceful">Peaceful</button>
-          <button class="tag" data-cat="mood" data-val="dark and moody">Dark & Moody</button>
-          <button class="tag" data-cat="mood" data-val="vibrant and energetic">Vibrant</button>
-          <button class="tag" data-cat="mood" data-val="melancholic">Melancholic</button>
-          <button class="tag" data-cat="mood" data-val="cinematic">Cinematic</button>
-          <button class="tag" data-cat="mood" data-val="mysterious">Mysterious</button>
-        </div>
-      </div>
-
-      <!-- Lighting -->
-      <div class="field-group">
-        <label>Lighting</label>
-        <div class="tag-grid" id="lightGrid">
-          <button class="tag" data-cat="lighting" data-val="golden hour">Golden Hour</button>
-          <button class="tag" data-cat="lighting" data-val="studio lighting">Studio</button>
-          <button class="tag" data-cat="lighting" data-val="neon lights">Neon</button>
-          <button class="tag" data-cat="lighting" data-val="soft diffused light">Soft Diffused</button>
-          <button class="tag" data-cat="lighting" data-val="dramatic shadows">Dramatic Shadows</button>
-          <button class="tag" data-cat="lighting" data-val="backlit">Backlit</button>
-          <button class="tag" data-cat="lighting" data-val="moonlight">Moonlight</button>
-          <button class="tag" data-cat="lighting" data-val="volumetric fog">Volumetric Fog</button>
-        </div>
-      </div>
-
-      <!-- Camera -->
-      <div class="field-group">
-        <label>Camera / Perspective</label>
-        <div class="tag-grid">
-          <button class="tag" data-cat="camera" data-val="close-up portrait">Close-up</button>
-          <button class="tag" data-cat="camera" data-val="wide angle shot">Wide Angle</button>
-          <button class="tag" data-cat="camera" data-val="aerial view">Aerial View</button>
-          <button class="tag" data-cat="camera" data-val="macro photography">Macro</button>
-          <button class="tag" data-cat="camera" data-val="low angle">Low Angle</button>
-          <button class="tag" data-cat="camera" data-val="birds eye view">Bird's Eye</button>
-        </div>
-      </div>
-
-      <!-- Quality Boosters -->
-      <div class="field-group">
-        <label>Quality Boosters</label>
-        <div class="tag-grid">
-          <button class="tag" data-cat="quality" data-val="8k ultra detailed">8K Ultra</button>
-          <button class="tag" data-cat="quality" data-val="hyperrealistic">Hyperrealistic</button>
-          <button class="tag" data-cat="quality" data-val="award winning photography">Award Winning</button>
-          <button class="tag" data-cat="quality" data-val="masterpiece">Masterpiece</button>
-          <button class="tag" data-cat="quality" data-val="trending on artstation">ArtStation</button>
-          <button class="tag" data-cat="quality" data-val="unreal engine render">Unreal Engine</button>
-        </div>
-      </div>
-
-      <!-- Platform -->
-      <div class="field-group">
-        <label>Target Platform</label>
-        <div class="platform-select">
-          <button class="platform-btn active" data-platform="midjourney">Midjourney</button>
-          <button class="platform-btn" data-platform="dalle">DALL·E</button>
-          <button class="platform-btn" data-platform="sd">Stable Diffusion</button>
-          <button class="platform-btn" data-platform="flux">Flux</button>
-        </div>
-      </div>
-
-      <!-- Negative Prompt -->
-      <div class="field-group">
-        <label>Negative Prompt <span class="label-hint">(what to avoid)</span></label>
-        <textarea id="negative" placeholder="e.g. blurry, distorted, low quality, watermark..." rows="2"></textarea>
-      </div>
-
-      <!-- Aspect Ratio (MJ) -->
-      <div class="field-group" id="mjOptions">
-        <label>Aspect Ratio</label>
-        <div class="tag-grid">
-          <button class="tag" data-cat="ar" data-val="--ar 1:1">1:1 Square</button>
-          <button class="tag" data-cat="ar" data-val="--ar 16:9">16:9 Wide</button>
-          <button class="tag" data-cat="ar" data-val="--ar 9:16">9:16 Portrait</button>
-          <button class="tag" data-cat="ar" data-val="--ar 4:3">4:3</button>
-          <button class="tag" data-cat="ar" data-val="--ar 3:2">3:2</button>
-          <button class="tag" data-cat="ar" data-val="--ar 21:9">21:9 Ultra</button>
-        </div>
-      </div>
-
-    </section>
-
-    <!-- Right Panel: Output -->
-    <section class="panel panel-output">
-      <h2 class="panel-title">Output</h2>
-
-      <!-- Live Prompt -->
-      <div class="output-box">
-        <div class="output-header">
-          <span class="output-label">Generated Prompt</span>
-          <div class="output-actions">
-            <button class="btn-action" id="copyBtn" onclick="copyPrompt()">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-              Copy
-            </button>
-            <button class="btn-action" id="resetBtn" onclick="resetAll()">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
-              Reset
-            </button>
+        <!-- Camera & Optics -->
+        <div class="card">
+          <label class="section-label">📷 Camera & Optics</label>
+          <div class="selects-row">
+            <div class="select-wrap">
+              <select id="sel-camera" class="sel" onchange="onSelect('camera',this)">
+                <option value="">Camera Body</option>
+                <option>Sony A7 IV</option>
+                <option>Canon EOS R5</option>
+                <option>Nikon Z9</option>
+                <option>Hasselblad X2D</option>
+                <option>ARRI Alexa 35</option>
+                <option>RED Komodo 6K</option>
+                <option>Leica M11</option>
+                <option>Fujifilm GFX 100S</option>
+                <option>DJI Ronin 4D</option>
+                <option>Blackmagic URSA Mini Pro</option>
+              </select>
+            </div>
+            <div class="select-wrap">
+              <select id="sel-lens" class="sel" onchange="onSelect('lens',this)">
+                <option value="">Lens</option>
+                <option>24mm f/1.4</option>
+                <option>35mm f/1.8</option>
+                <option>50mm f/1.2</option>
+                <option>85mm f/1.4</option>
+                <option>135mm f/2</option>
+                <option>200mm f/2.8</option>
+                <option>14mm f/2.8 Ultra Wide</option>
+                <option>70-200mm f/2.8 Zoom</option>
+                <option>Macro 100mm f/2.8</option>
+                <option>Fisheye 8mm f/3.5</option>
+              </select>
+            </div>
+            <div class="select-wrap">
+              <select id="sel-angle" class="sel" onchange="onSelect('angle',this)">
+                <option value="">Angle</option>
+                <option>Eye-level</option>
+                <option>Low angle</option>
+                <option>High angle</option>
+                <option>Bird's eye</option>
+                <option>Worm's eye</option>
+                <option>Dutch tilt</option>
+                <option>Over the shoulder</option>
+                <option>Point of view (POV)</option>
+                <option>Aerial</option>
+                <option>Close-up</option>
+              </select>
+            </div>
           </div>
         </div>
-        <div class="prompt-display" id="promptDisplay">
-          <span class="prompt-placeholder">Your prompt will appear here as you build it...</span>
-        </div>
-        <div class="prompt-meta">
-          <span id="charCount">0 chars</span>
-          <span id="wordCount">0 words</span>
-          <span class="platform-badge" id="platformBadge">Midjourney</span>
-        </div>
-      </div>
 
-      <!-- Active Tags -->
-      <div class="active-tags-section">
-        <div class="active-tags-header">
-          <span>Active Parameters</span>
-          <span id="tagCount" class="tag-count-badge">0</span>
+        <!-- Aspect Ratio -->
+        <div class="card">
+          <label class="section-label">⬛ Aspect Ratio</label>
+          <div class="pill-row">
+            <button class="pill" data-group="ar" data-val="1:1">1:1</button>
+            <button class="pill" data-group="ar" data-val="4:3">4:3</button>
+            <button class="pill" data-group="ar" data-val="3:2">3:2</button>
+            <button class="pill" data-group="ar" data-val="16:9">16:9</button>
+            <button class="pill" data-group="ar" data-val="21:9">21:9</button>
+            <button class="pill" data-group="ar" data-val="9:16">9:16</button>
+            <button class="pill" data-group="ar" data-val="4:5">4:5</button>
+            <button class="pill" data-group="ar" data-val="2:3">2:3</button>
+          </div>
         </div>
-        <div class="active-tags" id="activeTags">
-          <span class="no-tags-msg">Select options from the left panel →</span>
+
+        <!-- Lighting -->
+        <div class="card">
+          <label class="section-label">💡 Lighting</label>
+          <div class="pill-row">
+            <button class="pill" data-group="lighting" data-val="Golden hour">Golden hour</button>
+            <button class="pill" data-group="lighting" data-val="Blue hour">Blue hour</button>
+            <button class="pill" data-group="lighting" data-val="Dramatic side lighting">Dramatic side lighting</button>
+            <button class="pill" data-group="lighting" data-val="Soft diffused light">Soft diffused light</button>
+            <button class="pill" data-group="lighting" data-val="Neon lighting">Neon lighting</button>
+            <button class="pill" data-group="lighting" data-val="Candlelight">Candlelight</button>
+            <button class="pill" data-group="lighting" data-val="Studio lighting">Studio lighting</button>
+            <button class="pill" data-group="lighting" data-val="Backlit silhouette">Backlit silhouette</button>
+            <button class="pill" data-group="lighting" data-val="Volumetric light">Volumetric light</button>
+            <button class="pill" data-group="lighting" data-val="Chiaroscuro">Chiaroscuro</button>
+          </div>
         </div>
-      </div>
 
-      <!-- Presets Section -->
-      <div class="presets-section" id="presets">
-        <h3 class="presets-title">Quick Presets</h3>
-        <div class="presets-grid">
-          <button class="preset-card" onclick="loadPreset('fantasy')">
-            <span class="preset-icon">🏰</span>
-            <span class="preset-name">Epic Fantasy</span>
-            <span class="preset-desc">Dramatic medieval worlds</span>
+        <!-- Art Style -->
+        <div class="card">
+          <label class="section-label">🎨 Art Style</label>
+          <div class="pill-row">
+            <button class="pill" data-group="style" data-val="Cinematic">Cinematic</button>
+            <button class="pill" data-group="style" data-val="Photorealistic">Photorealistic</button>
+            <button class="pill" data-group="style" data-val="Oil painting">Oil painting</button>
+            <button class="pill" data-group="style" data-val="Watercolor">Watercolor</button>
+            <button class="pill" data-group="style" data-val="Concept art">Concept art</button>
+            <button class="pill" data-group="style" data-val="Anime">Anime</button>
+            <button class="pill" data-group="style" data-val="Comic book">Comic book</button>
+            <button class="pill" data-group="style" data-val="Surrealism">Surrealism</button>
+            <button class="pill" data-group="style" data-val="Minimalist">Minimalist</button>
+            <button class="pill" data-group="style" data-val="Baroque">Baroque</button>
+          </div>
+        </div>
+
+        <!-- Mood -->
+        <div class="card">
+          <label class="section-label">🎭 Mood</label>
+          <div class="pill-row">
+            <button class="pill" data-group="mood" data-val="Epic">Epic</button>
+            <button class="pill" data-group="mood" data-val="Mysterious">Mysterious</button>
+            <button class="pill" data-group="mood" data-val="Melancholic">Melancholic</button>
+            <button class="pill" data-group="mood" data-val="Joyful">Joyful</button>
+            <button class="pill" data-group="mood" data-val="Tense">Tense</button>
+            <button class="pill" data-group="mood" data-val="Serene">Serene</button>
+            <button class="pill" data-group="mood" data-val="Romantic">Romantic</button>
+            <button class="pill" data-group="mood" data-val="Eerie">Eerie</button>
+            <button class="pill" data-group="mood" data-val="Nostalgic">Nostalgic</button>
+            <button class="pill" data-group="mood" data-val="Futuristic">Futuristic</button>
+          </div>
+        </div>
+
+        <!-- Environment -->
+        <div class="card">
+          <label class="section-label">🌍 Environment</label>
+          <div class="pill-row">
+            <button class="pill" data-group="environment" data-val="Urban cityscape">Urban cityscape</button>
+            <button class="pill" data-group="environment" data-val="Dense forest">Dense forest</button>
+            <button class="pill" data-group="environment" data-val="Desert dunes">Desert dunes</button>
+            <button class="pill" data-group="environment" data-val="Snowy mountains">Snowy mountains</button>
+            <button class="pill" data-group="environment" data-val="Underwater">Underwater</button>
+            <button class="pill" data-group="environment" data-val="Outer space">Outer space</button>
+            <button class="pill" data-group="environment" data-val="Post-apocalyptic">Post-apocalyptic</button>
+            <button class="pill" data-group="environment" data-val="Medieval village">Medieval village</button>
+            <button class="pill" data-group="environment" data-val="Futuristic city">Futuristic city</button>
+            <button class="pill" data-group="environment" data-val="Tropical beach">Tropical beach</button>
+          </div>
+        </div>
+
+        <!-- Quality -->
+        <div class="card">
+          <label class="section-label">✨ Quality Tags</label>
+          <div class="pill-row">
+            <button class="pill" data-group="quality" data-val="8K ultra HD">8K ultra HD</button>
+            <button class="pill" data-group="quality" data-val="Hyper-detailed">Hyper-detailed</button>
+            <button class="pill" data-group="quality" data-val="Award-winning photography">Award-winning photography</button>
+            <button class="pill" data-group="quality" data-val="Sharp focus">Sharp focus</button>
+            <button class="pill" data-group="quality" data-val="High dynamic range">High dynamic range</button>
+            <button class="pill" data-group="quality" data-val="Ray tracing">Ray tracing</button>
+            <button class="pill" data-group="quality" data-val="Bokeh background">Bokeh background</button>
+            <button class="pill" data-group="quality" data-val="Film grain">Film grain</button>
+            <button class="pill" data-group="quality" data-val="Trending on ArtStation">Trending on ArtStation</button>
+            <button class="pill" data-group="quality" data-val="Masterpiece">Masterpiece</button>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- RIGHT COLUMN -->
+      <section class="col-right">
+
+        <!-- Action Buttons -->
+        <div class="action-row">
+          <button class="btn-generate" id="btn-generate" onclick="generatePrompt()">
+            <span id="gen-icon">✦</span>
+            <span id="gen-label">Generate</span>
           </button>
-          <button class="preset-card" onclick="loadPreset('portrait')">
-            <span class="preset-icon">🎭</span>
-            <span class="preset-name">Studio Portrait</span>
-            <span class="preset-desc">Professional character shots</span>
-          </button>
-          <button class="preset-card" onclick="loadPreset('scifi')">
-            <span class="preset-icon">🚀</span>
-            <span class="preset-name">Sci-Fi Future</span>
-            <span class="preset-desc">Futuristic environments</span>
-          </button>
-          <button class="preset-card" onclick="loadPreset('nature')">
-            <span class="preset-icon">🌿</span>
-            <span class="preset-name">Nature & Landscape</span>
-            <span class="preset-desc">Stunning natural scenes</span>
-          </button>
-          <button class="preset-card" onclick="loadPreset('abstract')">
-            <span class="preset-icon">🎨</span>
-            <span class="preset-name">Abstract Art</span>
-            <span class="preset-desc">Avant-garde compositions</span>
-          </button>
-          <button class="preset-card" onclick="loadPreset('architecture')">
-            <span class="preset-icon">🏛️</span>
-            <span class="preset-name">Architecture</span>
-            <span class="preset-desc">Stunning buildings & spaces</span>
+          <button class="btn-reset" onclick="resetAll()">↺ Reset</button>
+        </div>
+
+        <!-- API Key -->
+        <div class="card api-card">
+          <label class="section-label">🔑 Gemini API Key</label>
+          <div class="api-row">
+            <input type="password" id="api-key-input" class="api-input" placeholder="Paste your Gemini API key here..."/>
+            <button class="btn-save-key" onclick="saveKey()">Save</button>
+          </div>
+          <p class="api-hint">Get a free key at <a href="https://aistudio.google.com/app/apikey" target="_blank">aistudio.google.com</a></p>
+        </div>
+
+        <!-- Output -->
+        <div class="card output-card">
+          <div class="output-topbar">
+            <span class="section-label" style="margin:0">Generated Prompt</span>
+            <button class="btn-copy" id="btn-copy" onclick="copyPrompt()">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <span id="copy-label">Copy</span>
+            </button>
+          </div>
+          <div class="output-body" id="output-body">
+            <span class="output-placeholder">Your AI-enhanced prompt will appear here...</span>
+          </div>
+          <div class="output-footer" id="output-footer" style="display:none">
+            <span id="stat-chars">0 chars</span>
+            <span id="stat-words">0 words</span>
+          </div>
+        </div>
+
+        <!-- Active Selections -->
+        <div class="card">
+          <div class="active-header">
+            <span class="section-label" style="margin:0">Active Selections</span>
+            <span class="badge" id="active-count">0</span>
+          </div>
+          <div class="active-chips" id="active-chips">
+            <span class="placeholder-chips">Nothing selected yet</span>
+          </div>
+        </div>
+
+        <!-- Raw Prompt -->
+        <div class="card">
+          <label class="section-label">🔍 Raw Prompt Preview</label>
+          <div class="raw-prompt" id="raw-prompt">
+            <span class="output-placeholder">Start selecting options...</span>
+          </div>
+        </div>
+
+      </section>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- TAB 2: IMAGE MASK                           -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div id="tab-mask" class="tab-content">
+    <div class="mask-layout">
+
+      <!-- Left: Controls -->
+      <section class="mask-controls">
+
+        <div class="card">
+          <label class="section-label">📁 Upload Image</label>
+          <label class="upload-zone" id="upload-zone" for="file-input">
+            <div class="upload-icon">↑</div>
+            <div class="upload-text">Click or drag & drop an image</div>
+            <div class="upload-hint">PNG, JPG, WEBP supported</div>
+            <input type="file" id="file-input" accept="image/*" style="display:none" onchange="loadImage(event)"/>
+          </label>
+        </div>
+
+        <div class="card">
+          <label class="section-label">🖌️ Brush Controls</label>
+          <div class="brush-controls">
+            <div class="control-row">
+              <label class="ctrl-label">Brush Size</label>
+              <div class="slider-row">
+                <input type="range" id="brush-size" min="2" max="60" value="10" class="slider" oninput="updateBrush()"/>
+                <span class="slider-val" id="brush-size-val">10px</span>
+              </div>
+            </div>
+            <div class="control-row">
+              <label class="ctrl-label">Brush Color</label>
+              <div class="color-options" id="color-options">
+                <button class="color-dot active" style="background:#ff3b3b" data-color="#ff3b3b" onclick="setBrushColor(this)"></button>
+                <button class="color-dot" style="background:#3b82f6" data-color="#3b82f6" onclick="setBrushColor(this)"></button>
+                <button class="color-dot" style="background:#10b981" data-color="#10b981" onclick="setBrushColor(this)"></button>
+                <button class="color-dot" style="background:#f59e0b" data-color="#f59e0b" onclick="setBrushColor(this)"></button>
+                <button class="color-dot" style="background:#a78bfa" data-color="#a78bfa" onclick="setBrushColor(this)"></button>
+                <button class="color-dot" style="background:#ffffff" data-color="#ffffff" onclick="setBrushColor(this)"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <label class="section-label">⚙️ Mode</label>
+          <div class="mode-row">
+            <button class="mode-btn active" id="mode-draw" onclick="setMode('draw')">✏️ Draw Mask</button>
+            <button class="mode-btn" id="mode-pan" onclick="setMode('pan')">🖐 Pan / View</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <label class="section-label">🔧 Actions</label>
+          <div class="mask-actions">
+            <button class="btn-mask-action" onclick="undoLast()">↩ Undo Last</button>
+            <button class="btn-mask-action" onclick="clearMask()">🗑 Clear Mask</button>
+            <button class="btn-mask-action green" onclick="exportMask()">⬇ Export Mask</button>
+            <button class="btn-mask-action green" onclick="sendMaskToPrompt()">✦ Use in Prompt</button>
+          </div>
+        </div>
+
+        <div class="card" id="mask-prompt-card" style="display:none">
+          <label class="section-label">✦ Mask Prompt</label>
+          <textarea id="mask-prompt-text" class="subject-input" rows="3" placeholder="Describe what to generate in the masked area..."></textarea>
+          <button class="btn-generate" style="margin-top:10px;width:100%" onclick="generateMaskPrompt()">
+            <span>✦</span> Generate Inpaint Prompt
           </button>
         </div>
-      </div>
 
-      <!-- Tips -->
-      <div class="tips-box">
-        <div class="tips-header">💡 Pro Tips</div>
-        <ul class="tips-list">
-          <li>Be specific with your subject — details matter</li>
-          <li>Combine multiple styles for unique results</li>
-          <li>Use negative prompts to avoid common issues</li>
-          <li>For Midjourney, add <code>--v 6</code> for best quality</li>
-        </ul>
-      </div>
+        <div class="card" id="mask-output-card" style="display:none">
+          <div class="output-topbar">
+            <span class="section-label" style="margin:0">Inpaint Prompt</span>
+            <button class="btn-copy" onclick="copyMaskPrompt()">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+          <div class="output-body" id="mask-output-body" style="min-height:80px"></div>
+        </div>
 
-    </section>
-  </main>
+      </section>
 
-  <!-- Footer -->
+      <!-- Right: Canvas -->
+      <section class="mask-canvas-section">
+        <div class="card canvas-card" id="canvas-card">
+          <div class="canvas-topbar">
+            <span class="section-label" style="margin:0">Canvas</span>
+            <div class="canvas-info" id="canvas-info">No image loaded</div>
+          </div>
+
+          <!-- Empty state -->
+          <div class="canvas-empty" id="canvas-empty">
+            <div class="empty-icon">🖼</div>
+            <div class="empty-text">Upload an image to start masking</div>
+            <label for="file-input" class="btn-upload-cta">Upload Image</label>
+          </div>
+
+          <!-- Canvas wrapper -->
+          <div class="canvas-wrapper" id="canvas-wrapper" style="display:none">
+            <canvas id="mask-canvas"></canvas>
+            <div class="brush-cursor" id="brush-cursor"></div>
+          </div>
+
+          <!-- Stroke counter -->
+          <div class="canvas-footer" id="canvas-footer" style="display:none">
+            <span id="stroke-count">0 strokes</span>
+            <span id="mask-coverage">Coverage: 0%</span>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
   <footer class="footer">
-    <p>Built with ❤️ using HTML, CSS & JS · <a href="https://github.com" target="_blank">View on GitHub</a> · Deploy free with GitHub Pages</p>
+    Built with ❤️ · Powered by Gemini AI · <a href="https://github.com/niladrysaha99/prompt-builder" target="_blank">niladrysaha99/prompt-builder</a>
   </footer>
 
-  <script src="js/app.js"></script>
+</div>
+
+<script src="js/app.js"></script>
+<script src="js/mask.js"></script>
 </body>
 </html>
