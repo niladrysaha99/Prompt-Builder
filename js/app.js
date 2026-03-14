@@ -1,71 +1,98 @@
-const API_KEY = "AIzaSyALe7aNOil-9pHou10fk6JQy6lgWzA_I3g"
+let API_KEY = localStorage.getItem("gemini_api_key")
 
-let references = {
-character:"",
-background:"",
-element:""
+function saveKey(){
+
+const key=document.getElementById("apikey").value
+
+localStorage.setItem("gemini_api_key",key)
+
+API_KEY=key
+
+alert("API key saved")
+
 }
 
 
-/* TAB SWITCH */
 
-const tabs=document.querySelectorAll(".tab")
-const contents=document.querySelectorAll(".tab-content")
+/* TABS */
 
-tabs.forEach(tab=>{
+document.querySelectorAll(".tab").forEach(tab=>{
 
-tab.addEventListener("click",()=>{
+tab.onclick=()=>{
 
-tabs.forEach(t=>t.classList.remove("active"))
-contents.forEach(c=>c.classList.remove("active"))
+document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"))
+
+document.querySelectorAll(".tab-content").forEach(c=>c.classList.remove("active"))
 
 tab.classList.add("active")
 
 document.getElementById(tab.dataset.tab).classList.add("active")
 
-})
+}
 
 })
 
 
 
-/* UPLOAD CLICK */
+/* PILLS */
+
+document.querySelectorAll(".pill").forEach(p=>{
+
+p.onclick=()=>p.classList.toggle("active")
+
+})
+
+
+
+/* UPLOAD */
 
 document.querySelectorAll(".drop-area").forEach(area=>{
 
 const input=document.getElementById(area.dataset.input)
 
-area.addEventListener("click",()=>input.click())
+area.onclick=()=>input.click()
 
-input.addEventListener("change",()=>{
+input.onchange=()=>{
 
 const file=input.files[0]
 
-if(file){
+previewImage(file,input.id)
 
-handleImageUpload(file,input.id)
+analyzeImage(file,input.id)
 
 }
 
 })
 
-})
+
+
+function previewImage(file,type){
+
+const reader=new FileReader()
+
+reader.onload=e=>{
+
+document.getElementById(type.replace("Input","Preview")).src=e.target.result
+
+}
+
+reader.readAsDataURL(file)
+
+}
 
 
 
-/* IMAGE → GEMINI PROMPT */
+/* GEMINI IMAGE ANALYSIS */
 
-async function handleImageUpload(file,type){
+async function analyzeImage(file,type){
 
-const base64 = await toBase64(file)
+const base64=await toBase64(file)
 
-const body = {
+const body={
 contents:[
 {
 parts:[
-{
-text:"Describe this image in a detailed way suitable for AI image generation prompts."
-},
+{ text:"Describe this image for AI image generation prompt."},
 {
 inline_data:{
 mime_type:file.type,
@@ -77,40 +104,23 @@ data:base64.split(",")[1]
 ]
 }
 
-const res = await fetch(
+const res=await fetch(
 `https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent?key=${API_KEY}`,
 {
 method:"POST",
 headers:{ "Content-Type":"application/json"},
 body:JSON.stringify(body)
-}
-)
+})
 
-const data = await res.json()
+const data=await res.json()
 
-const text = data.candidates[0].content.parts[0].text
+const text=data.candidates[0].content.parts[0].text
 
-
-if(type==="characterInput"){
-references.character=text
-document.getElementById("characterPrompt").innerText=text
-}
-
-if(type==="backgroundInput"){
-references.background=text
-document.getElementById("backgroundPrompt").innerText=text
-}
-
-if(type==="elementInput"){
-references.element=text
-document.getElementById("elementPrompt").innerText=text
-}
+document.getElementById(type.replace("Input","Prompt")).innerText=text
 
 }
 
 
-
-/* BASE64 CONVERTER */
 
 function toBase64(file){
 
@@ -122,7 +132,7 @@ reader.readAsDataURL(file)
 
 reader.onload=()=>resolve(reader.result)
 
-reader.onerror=error=>reject(error)
+reader.onerror=reject
 
 })
 
@@ -130,25 +140,58 @@ reader.onerror=error=>reject(error)
 
 
 
-/* FINAL PROMPT */
+/* PROMPT GENERATOR */
 
 document.getElementById("generatePrompt").onclick=()=>{
 
 const subject=document.getElementById("subjectInput").value
 
-const finalPrompt = `
+let tags=[]
 
-${references.character}
+document.querySelectorAll(".pill.active").forEach(p=>tags.push(p.innerText))
 
-${references.background}
+const prompt=`${subject}, ${tags.join(", ")}`
 
-${references.element}
+document.getElementById("promptOutput").innerText=prompt
 
-Subject: ${subject}
-
-Ultra detailed cinematic image, 8k, professional photography
-`
-
-document.getElementById("promptOutput").innerText=finalPrompt
+saveHistory(prompt)
 
 }
+
+
+
+/* HISTORY */
+
+function saveHistory(prompt){
+
+let history=JSON.parse(localStorage.getItem("history"))||[]
+
+history.unshift(prompt)
+
+localStorage.setItem("history",JSON.stringify(history))
+
+renderHistory()
+
+}
+
+function renderHistory(){
+
+let history=JSON.parse(localStorage.getItem("history"))||[]
+
+const box=document.getElementById("history")
+
+box.innerHTML=""
+
+history.forEach(p=>{
+
+const div=document.createElement("div")
+
+div.innerText=p
+
+box.appendChild(div)
+
+})
+
+}
+
+renderHistory()
