@@ -14,26 +14,6 @@ alert("API key saved")
 
 
 
-/* TABS */
-
-document.querySelectorAll(".tab").forEach(tab=>{
-
-tab.onclick=()=>{
-
-document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"))
-
-document.querySelectorAll(".tab-content").forEach(c=>c.classList.remove("active"))
-
-tab.classList.add("active")
-
-document.getElementById(tab.dataset.tab).classList.add("active")
-
-}
-
-})
-
-
-
 /* PILLS */
 
 document.querySelectorAll(".pill").forEach(p=>{
@@ -44,7 +24,7 @@ p.onclick=()=>p.classList.toggle("active")
 
 
 
-/* UPLOAD */
+/* IMAGE PREVIEW */
 
 document.querySelectorAll(".drop-area").forEach(area=>{
 
@@ -56,9 +36,7 @@ input.onchange=()=>{
 
 const file=input.files[0]
 
-previewImage(file,input.id)
-
-analyzeImage(file,input.id)
+preview(file,input.id)
 
 }
 
@@ -66,7 +44,7 @@ analyzeImage(file,input.id)
 
 
 
-function previewImage(file,type){
+function preview(file,type){
 
 const reader=new FileReader()
 
@@ -82,24 +60,52 @@ reader.readAsDataURL(file)
 
 
 
-/* GEMINI IMAGE ANALYSIS */
+/* PROMPT GENERATOR */
 
-async function analyzeImage(file,type){
+document.getElementById("generatePrompt").onclick=generatePrompt
 
-const base64=await toBase64(file)
+
+async function generatePrompt(){
+
+const subject=document.getElementById("subjectInput").value
+const action=document.getElementById("actionInput").value
+const env=document.getElementById("environmentText").value
+
+let tags=[]
+
+document.querySelectorAll(".pill.active").forEach(p=>tags.push(p.innerText))
+
+const userPrompt=`
+
+Create cinematic prompt using structure:
+
+Camera → Subject → Action → Environment → Lighting → Texture
+
+Subject: ${subject}
+Action: ${action}
+Environment: ${env}
+Extra style: ${tags.join(", ")}
+
+Return JSON format:
+
+{
+"camera":"",
+"subject":"",
+"action":"",
+"environment":"",
+"lighting":"",
+"texture":"",
+"final_prompt":""
+}
+
+Keep total characters under 1000.
+
+`
 
 const body={
 contents:[
 {
-parts:[
-{ text:"Describe this image for AI image generation prompt."},
-{
-inline_data:{
-mime_type:file.type,
-data:base64.split(",")[1]
-}
-}
-]
+parts:[{text:userPrompt}]
 }
 ]
 }
@@ -110,51 +116,16 @@ const res=await fetch(
 method:"POST",
 headers:{ "Content-Type":"application/json"},
 body:JSON.stringify(body)
-})
+}
+)
 
 const data=await res.json()
 
 const text=data.candidates[0].content.parts[0].text
 
-document.getElementById(type.replace("Input","Prompt")).innerText=text
+document.getElementById("promptOutput").innerText=text
 
-}
-
-
-
-function toBase64(file){
-
-return new Promise((resolve,reject)=>{
-
-const reader=new FileReader()
-
-reader.readAsDataURL(file)
-
-reader.onload=()=>resolve(reader.result)
-
-reader.onerror=reject
-
-})
-
-}
-
-
-
-/* PROMPT GENERATOR */
-
-document.getElementById("generatePrompt").onclick=()=>{
-
-const subject=document.getElementById("subjectInput").value
-
-let tags=[]
-
-document.querySelectorAll(".pill.active").forEach(p=>tags.push(p.innerText))
-
-const prompt=`${subject}, ${tags.join(", ")}`
-
-document.getElementById("promptOutput").innerText=prompt
-
-saveHistory(prompt)
+saveHistory(text)
 
 }
 
