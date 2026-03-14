@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>PromptForge v2</title>
+<title>PromptForge AI</title>
 
 <link rel="stylesheet" href="css/style.css">
 
@@ -15,19 +15,21 @@
 
 <div class="container">
 
-<h1>PromptForge v2</h1>
+<h1>PromptForge AI</h1>
 
-<div class="tabs">
 
-<button class="tab active" data-tab="builder">✨ Prompt Builder</button>
-<button class="tab" data-tab="mask">🖌 Image Mask</button>
+<!-- PROMPT STRUCTURE -->
+
+<div class="prompt-structure">
+
+<span class="camera">Camera</span> →
+<span class="subject">Subject</span> →
+<span class="action">Action</span> →
+<span class="environment">Environment</span> →
+<span class="lighting">Lighting</span> →
+<span class="texture">Texture</span>
 
 </div>
-
-
-<!-- PROMPT BUILDER -->
-
-<div class="tab-content active" id="builder">
 
 
 <!-- API KEY -->
@@ -36,12 +38,12 @@
 
 <input id="apikey" placeholder="Enter Gemini API key">
 
-<button onclick="saveKey()">Save</button>
+<button onclick="saveKey()">Save Key</button>
 
 </div>
 
 
-<!-- IMAGE REFERENCES -->
+<!-- REFERENCE UPLOAD -->
 
 <h2>Reference Images</h2>
 
@@ -55,130 +57,102 @@
 
 <div class="drop-area" data-input="characterInput">
 
-Upload Character Image
+Upload Character
 
 </div>
 
 <img id="characterPreview">
 
-<div class="ai-text" id="characterPrompt"></div>
+</div>
+
+
+<div class="upload-box">
+
+<h3>Environment</h3>
+
+<input type="file" id="environmentInput" hidden accept="image/*">
+
+<div class="drop-area" data-input="environmentInput">
+
+Upload Environment
+
+</div>
+
+<img id="environmentPreview">
 
 </div>
 
 
 <div class="upload-box">
 
-<h3>Background</h3>
+<h3>Object</h3>
 
-<input type="file" id="backgroundInput" hidden accept="image/*">
+<input type="file" id="objectInput" hidden accept="image/*">
 
-<div class="drop-area" data-input="backgroundInput">
+<div class="drop-area" data-input="objectInput">
 
-Upload Background Image
-
-</div>
-
-<img id="backgroundPreview">
-
-<div class="ai-text" id="backgroundPrompt"></div>
+Upload Object
 
 </div>
 
-
-<div class="upload-box">
-
-<h3>Element</h3>
-
-<input type="file" id="elementInput" hidden accept="image/*">
-
-<div class="drop-area" data-input="elementInput">
-
-Upload Object Image
-
-</div>
-
-<img id="elementPreview">
-
-<div class="ai-text" id="elementPrompt"></div>
+<img id="objectPreview">
 
 </div>
 
 </div>
 
 
-<!-- SUBJECT -->
+<!-- PROMPT INPUTS -->
 
 <h2>Subject</h2>
 
 <input id="subjectInput" placeholder="Example: futuristic samurai warrior">
 
 
+<h2>Action</h2>
+
+<input id="actionInput" placeholder="Example: walking slowly while holding sword">
+
+
+<h2>Environment</h2>
+
+<input id="environmentText" placeholder="Example: foggy cyberpunk street">
+
+
 <!-- STYLE PILLS -->
 
 <h2>Lighting</h2>
 
-<div class="pill-group" id="lighting">
+<div class="pill-group">
 
 <span class="pill">cinematic</span>
-<span class="pill">studio</span>
 <span class="pill">soft light</span>
+<span class="pill">neon lighting</span>
 <span class="pill">golden hour</span>
 
 </div>
 
 
-<h2>Art Style</h2>
+<h2>Texture</h2>
 
-<div class="pill-group" id="artStyle">
+<div class="pill-group">
 
-<span class="pill">photorealistic</span>
-<span class="pill">anime</span>
-<span class="pill">concept art</span>
-<span class="pill">digital painting</span>
-
-</div>
-
-
-<h2>Mood</h2>
-
-<div class="pill-group" id="mood">
-
-<span class="pill">epic</span>
-<span class="pill">dark</span>
-<span class="pill">dramatic</span>
-<span class="pill">peaceful</span>
+<span class="pill">film grain</span>
+<span class="pill">rain droplets</span>
+<span class="pill">wet reflections</span>
+<span class="pill">mist atmosphere</span>
 
 </div>
 
 
-<h2>Environment</h2>
+<button id="generatePrompt">
 
-<div class="pill-group" id="environment">
+Generate AI Prompt
 
-<span class="pill">forest</span>
-<span class="pill">cyberpunk city</span>
-<span class="pill">mountain</span>
-<span class="pill">space</span>
-
-</div>
+</button>
 
 
-<h2>Quality</h2>
-
-<div class="pill-group" id="quality">
-
-<span class="pill">ultra detailed</span>
-<span class="pill">8k</span>
-<span class="pill">sharp focus</span>
-<span class="pill">photorealistic</span>
-
-</div>
-
-
-<button id="generatePrompt">Generate Prompt</button>
-
-
-<h2>Prompt Output</h2>
+<h2>JSON Output</h2>
 
 <pre id="promptOutput"></pre>
 
@@ -188,18 +162,6 @@ Upload Object Image
 <div id="history"></div>
 
 </div>
-
-
-<!-- MASK TAB -->
-
-<div class="tab-content" id="mask">
-
-<h2>Mask Tool (Coming Soon)</h2>
-
-</div>
-
-</div>
-
 
 <script src="js/app.js"></script>
 
