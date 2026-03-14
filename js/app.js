@@ -111,7 +111,7 @@ async function callGemini(promptText) {
   const key = state.geminiKey || document.getElementById('api-key-input').value.trim();
   if (!key) throw new Error('No API key — please enter your Gemini key above.');
   const res = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`,
+    `https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent?key=${key}`,
     { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ contents:[{ parts:[{ text: promptText }] }] }) }
   );
   const data = await res.json();
@@ -269,7 +269,7 @@ async function autoGenerateRefPrompt(type) {
     };
 
     const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`,
+      `https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent?key=${key}`,
       { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }
     );
     const data = await res.json();
