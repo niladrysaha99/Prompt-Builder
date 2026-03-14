@@ -1,620 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Get Your Prompt</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css"/>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PromptForge</title>
+
+<link rel="stylesheet" href="css/style.css">
+
 </head>
+
 <body>
 
-<div class="noise"></div>
+<div class="container">
 
-<div class="app">
+<h1>PromptForge</h1>
 
-  <!-- HEADER -->
-  <header class="topbar">
-    <div class="topbar-left">
-      <span class="logo-mark">⬡</span>
-      <h1 class="logo-title">GET YOUR <span class="logo-accent">PROMPT</span></h1>
-    </div>
-    <a href="https://github.com/niladrysaha99/prompt-builder" target="_blank" class="gh-link">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-      GitHub
-    </a>
-  </header>
+<!-- TABS -->
 
-  <!-- TAB NAV -->
-  <nav class="tab-nav">
-    <button class="tab-btn active" onclick="switchTab('builder')">✦ Prompt Builder</button>
-    <button class="tab-btn" onclick="switchTab('refs')">🖼️ References</button>
-    <button class="tab-btn" onclick="switchTab('mask')">🖌️ Image Mask</button>
-  </nav>
+<div class="tabs">
 
-  <!-- ═══════════════════════════════════════════ -->
-  <!-- TAB 1: PROMPT BUILDER                       -->
-  <!-- ═══════════════════════════════════════════ -->
-  <div id="tab-builder" class="tab-content active">
-    <div class="main-grid">
-
-      <!-- LEFT COLUMN -->
-      <section class="col-left">
-
-        <div class="card">
-          <label class="section-label">Describe your image idea</label>
-          <textarea id="subject" class="subject-input" placeholder="e.g. A lone astronaut on Mars, dust storm approaching, lantern in hand..."></textarea>
-        </div>
-
-        <!-- Camera & Optics -->
-        <div class="card">
-          <label class="section-label">📷 Camera & Optics</label>
-          <div class="selects-row">
-            <div class="select-wrap">
-              <select id="sel-camera" class="sel" onchange="onSelect('camera',this)">
-                <option value="">Camera Body</option>
-                <option>Sony A7 IV</option>
-                <option>Canon EOS R5</option>
-                <option>Nikon Z9</option>
-                <option>Hasselblad X2D</option>
-                <option>ARRI Alexa 35</option>
-                <option>RED Komodo 6K</option>
-                <option>Leica M11</option>
-                <option>Fujifilm GFX 100S</option>
-                <option>DJI Ronin 4D</option>
-                <option>Blackmagic URSA Mini Pro</option>
-              </select>
-            </div>
-            <div class="select-wrap">
-              <select id="sel-lens" class="sel" onchange="onSelect('lens',this)">
-                <option value="">Lens</option>
-                <option>24mm f/1.4</option>
-                <option>35mm f/1.8</option>
-                <option>50mm f/1.2</option>
-                <option>85mm f/1.4</option>
-                <option>135mm f/2</option>
-                <option>200mm f/2.8</option>
-                <option>14mm f/2.8 Ultra Wide</option>
-                <option>70-200mm f/2.8 Zoom</option>
-                <option>Macro 100mm f/2.8</option>
-                <option>Fisheye 8mm f/3.5</option>
-              </select>
-            </div>
-            <div class="select-wrap">
-              <select id="sel-angle" class="sel" onchange="onSelect('angle',this)">
-                <option value="">Angle</option>
-                <option>Eye-level</option>
-                <option>Low angle</option>
-                <option>High angle</option>
-                <option>Bird's eye</option>
-                <option>Worm's eye</option>
-                <option>Dutch tilt</option>
-                <option>Over the shoulder</option>
-                <option>Point of view (POV)</option>
-                <option>Aerial</option>
-                <option>Close-up</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <!-- Aspect Ratio -->
-        <div class="card">
-          <label class="section-label">⬛ Aspect Ratio</label>
-          <div class="pill-row">
-            <button class="pill" data-group="ar" data-val="1:1">1:1</button>
-            <button class="pill" data-group="ar" data-val="4:3">4:3</button>
-            <button class="pill" data-group="ar" data-val="3:2">3:2</button>
-            <button class="pill" data-group="ar" data-val="16:9">16:9</button>
-            <button class="pill" data-group="ar" data-val="21:9">21:9</button>
-            <button class="pill" data-group="ar" data-val="9:16">9:16</button>
-            <button class="pill" data-group="ar" data-val="4:5">4:5</button>
-            <button class="pill" data-group="ar" data-val="2:3">2:3</button>
-          </div>
-        </div>
-
-        <!-- Lighting -->
-        <div class="card">
-          <label class="section-label">💡 Lighting</label>
-          <div class="pill-row">
-            <button class="pill" data-group="lighting" data-val="Golden hour">Golden hour</button>
-            <button class="pill" data-group="lighting" data-val="Blue hour">Blue hour</button>
-            <button class="pill" data-group="lighting" data-val="Dramatic side lighting">Dramatic side lighting</button>
-            <button class="pill" data-group="lighting" data-val="Soft diffused light">Soft diffused light</button>
-            <button class="pill" data-group="lighting" data-val="Neon lighting">Neon lighting</button>
-            <button class="pill" data-group="lighting" data-val="Candlelight">Candlelight</button>
-            <button class="pill" data-group="lighting" data-val="Studio lighting">Studio lighting</button>
-            <button class="pill" data-group="lighting" data-val="Backlit silhouette">Backlit silhouette</button>
-            <button class="pill" data-group="lighting" data-val="Volumetric light">Volumetric light</button>
-            <button class="pill" data-group="lighting" data-val="Chiaroscuro">Chiaroscuro</button>
-          </div>
-        </div>
-
-        <!-- Art Style -->
-        <div class="card">
-          <label class="section-label">🎨 Art Style</label>
-          <div class="pill-row">
-            <button class="pill" data-group="style" data-val="Cinematic">Cinematic</button>
-            <button class="pill" data-group="style" data-val="Photorealistic">Photorealistic</button>
-            <button class="pill" data-group="style" data-val="Oil painting">Oil painting</button>
-            <button class="pill" data-group="style" data-val="Watercolor">Watercolor</button>
-            <button class="pill" data-group="style" data-val="Concept art">Concept art</button>
-            <button class="pill" data-group="style" data-val="Anime">Anime</button>
-            <button class="pill" data-group="style" data-val="Comic book">Comic book</button>
-            <button class="pill" data-group="style" data-val="Surrealism">Surrealism</button>
-            <button class="pill" data-group="style" data-val="Minimalist">Minimalist</button>
-            <button class="pill" data-group="style" data-val="Baroque">Baroque</button>
-          </div>
-        </div>
-
-        <!-- Mood -->
-        <div class="card">
-          <label class="section-label">🎭 Mood</label>
-          <div class="pill-row">
-            <button class="pill" data-group="mood" data-val="Epic">Epic</button>
-            <button class="pill" data-group="mood" data-val="Mysterious">Mysterious</button>
-            <button class="pill" data-group="mood" data-val="Melancholic">Melancholic</button>
-            <button class="pill" data-group="mood" data-val="Joyful">Joyful</button>
-            <button class="pill" data-group="mood" data-val="Tense">Tense</button>
-            <button class="pill" data-group="mood" data-val="Serene">Serene</button>
-            <button class="pill" data-group="mood" data-val="Romantic">Romantic</button>
-            <button class="pill" data-group="mood" data-val="Eerie">Eerie</button>
-            <button class="pill" data-group="mood" data-val="Nostalgic">Nostalgic</button>
-            <button class="pill" data-group="mood" data-val="Futuristic">Futuristic</button>
-          </div>
-        </div>
-
-        <!-- Environment -->
-        <div class="card">
-          <label class="section-label">🌍 Environment</label>
-          <div class="pill-row">
-            <button class="pill" data-group="environment" data-val="Urban cityscape">Urban cityscape</button>
-            <button class="pill" data-group="environment" data-val="Dense forest">Dense forest</button>
-            <button class="pill" data-group="environment" data-val="Desert dunes">Desert dunes</button>
-            <button class="pill" data-group="environment" data-val="Snowy mountains">Snowy mountains</button>
-            <button class="pill" data-group="environment" data-val="Underwater">Underwater</button>
-            <button class="pill" data-group="environment" data-val="Outer space">Outer space</button>
-            <button class="pill" data-group="environment" data-val="Post-apocalyptic">Post-apocalyptic</button>
-            <button class="pill" data-group="environment" data-val="Medieval village">Medieval village</button>
-            <button class="pill" data-group="environment" data-val="Futuristic city">Futuristic city</button>
-            <button class="pill" data-group="environment" data-val="Tropical beach">Tropical beach</button>
-          </div>
-        </div>
-
-        <!-- Quality -->
-        <div class="card">
-          <label class="section-label">✨ Quality Tags</label>
-          <div class="pill-row">
-            <button class="pill" data-group="quality" data-val="8K ultra HD">8K ultra HD</button>
-            <button class="pill" data-group="quality" data-val="Hyper-detailed">Hyper-detailed</button>
-            <button class="pill" data-group="quality" data-val="Award-winning photography">Award-winning photography</button>
-            <button class="pill" data-group="quality" data-val="Sharp focus">Sharp focus</button>
-            <button class="pill" data-group="quality" data-val="High dynamic range">High dynamic range</button>
-            <button class="pill" data-group="quality" data-val="Ray tracing">Ray tracing</button>
-            <button class="pill" data-group="quality" data-val="Bokeh background">Bokeh background</button>
-            <button class="pill" data-group="quality" data-val="Film grain">Film grain</button>
-            <button class="pill" data-group="quality" data-val="Trending on ArtStation">Trending on ArtStation</button>
-            <button class="pill" data-group="quality" data-val="Masterpiece">Masterpiece</button>
-          </div>
-        </div>
-
-      </section>
-
-      <!-- RIGHT COLUMN -->
-      <section class="col-right">
-
-        <!-- Action Buttons -->
-        <div class="action-row">
-          <button class="btn-generate" id="btn-generate" onclick="generatePrompt()">
-            <span id="gen-icon">✦</span>
-            <span id="gen-label">Generate</span>
-          </button>
-          <button class="btn-reset" onclick="resetAll()">↺ Reset</button>
-        </div>
-
-        <!-- API Key -->
-        <div class="card api-card">
-          <label class="section-label">🔑 Gemini API Key</label>
-          <div class="api-row">
-            <input type="password" id="api-key-input" class="api-input" placeholder="Paste your Gemini API key here..."/>
-            <button class="btn-save-key" onclick="saveKey()">Save</button>
-          </div>
-          <p class="api-hint">Get a free key at <a href="https://aistudio.google.com/app/apikey" target="_blank">aistudio.google.com</a></p>
-        </div>
-
-        <!-- Output -->
-        <div class="card output-card">
-          <div class="output-topbar">
-            <span class="section-label" style="margin:0">Generated Prompt</span>
-            <button class="btn-copy" id="btn-copy" onclick="copyPrompt()">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-              <span id="copy-label">Copy</span>
-            </button>
-          </div>
-          <div class="output-body" id="output-body">
-            <span class="output-placeholder">Your AI-enhanced prompt will appear here...</span>
-          </div>
-          <div class="output-footer" id="output-footer" style="display:none">
-            <span id="stat-chars">0 chars</span>
-            <span id="stat-words">0 words</span>
-          </div>
-        </div>
-
-        <!-- Active Selections -->
-        <div class="card">
-          <div class="active-header">
-            <span class="section-label" style="margin:0">Active Selections</span>
-            <span class="badge" id="active-count">0</span>
-          </div>
-          <div class="active-chips" id="active-chips">
-            <span class="placeholder-chips">Nothing selected yet</span>
-          </div>
-        </div>
-
-        <!-- Raw Prompt -->
-        <div class="card">
-          <label class="section-label">🔍 Raw Prompt Preview</label>
-          <div class="raw-prompt" id="raw-prompt">
-            <span class="output-placeholder">Start selecting options...</span>
-          </div>
-        </div>
-
-        <!-- Image References -->
-        <div class="card ref-card">
-          <div class="ref-header">
-            <span class="section-label" style="margin:0">🖼️ Image References</span>
-            <span class="ref-hint">AI auto-generates prompt on upload</span>
-          </div>
-
-          <!-- Character Reference -->
-          <div class="ref-block" id="ref-character">
-            <div class="ref-block-label">
-              <span class="ref-icon">👤</span>
-              <span>Character Reference</span>
-              <span class="ref-count-badge" id="char-ref-badge" style="display:none">1</span>
-            </div>
-            <label class="ref-upload-zone" id="char-upload-zone">
-              <input type="file" accept="image/*" style="display:none" id="char-file-input" onchange="loadRef('character', event)"/>
-              <div class="ref-upload-inner">
-                <div class="ref-upload-icon">＋</div>
-                <div class="ref-upload-text">Upload character reference</div>
-                <div class="ref-upload-hint">JPG, PNG, WEBP</div>
-              </div>
-            </label>
-            <div class="ref-preview-single" id="char-preview-single" style="display:none">
-              <img id="char-preview-img" src="" alt="character ref"/>
-              <button class="ref-preview-remove" onclick="clearRef('character')">× Remove</button>
-            </div>
-            <div class="ref-ai-output" id="char-ai-output" style="display:none">
-              <div class="ref-ai-topbar">
-                <span class="ref-ai-label">✦ AI Prompt</span>
-                <button class="ref-ai-copy" onclick="copyRefAI('character')">Copy</button>
-              </div>
-              <div class="ref-ai-text" id="char-ai-text"></div>
-            </div>
-          </div>
-
-          <div class="ref-divider"></div>
-
-          <!-- Background Reference -->
-          <div class="ref-block" id="ref-background">
-            <div class="ref-block-label">
-              <span class="ref-icon">🌄</span>
-              <span>Background Reference</span>
-              <span class="ref-count-badge" id="bg-ref-badge" style="display:none">1</span>
-            </div>
-            <label class="ref-upload-zone" id="bg-upload-zone">
-              <input type="file" accept="image/*" style="display:none" id="bg-file-input" onchange="loadRef('background', event)"/>
-              <div class="ref-upload-inner">
-                <div class="ref-upload-icon">＋</div>
-                <div class="ref-upload-text">Upload background reference</div>
-                <div class="ref-upload-hint">JPG, PNG, WEBP</div>
-              </div>
-            </label>
-            <div class="ref-preview-single" id="bg-preview-single" style="display:none">
-              <img id="bg-preview-img" src="" alt="background ref"/>
-              <button class="ref-preview-remove" onclick="clearRef('background')">× Remove</button>
-            </div>
-            <div class="ref-ai-output" id="bg-ai-output" style="display:none">
-              <div class="ref-ai-topbar">
-                <span class="ref-ai-label">✦ AI Prompt</span>
-                <button class="ref-ai-copy" onclick="copyRefAI('background')">Copy</button>
-              </div>
-              <div class="ref-ai-text" id="bg-ai-text"></div>
-            </div>
-          </div>
-
-          <div class="ref-divider"></div>
-
-          <!-- Element Reference -->
-          <div class="ref-block" id="ref-element">
-            <div class="ref-block-label">
-              <span class="ref-icon">✦</span>
-              <span>Element Reference</span>
-              <span class="ref-count-badge" id="el-ref-badge" style="display:none">1</span>
-            </div>
-            <label class="ref-upload-zone" id="el-upload-zone">
-              <input type="file" accept="image/*" style="display:none" id="el-file-input" onchange="loadRef('element', event)"/>
-              <div class="ref-upload-inner">
-                <div class="ref-upload-icon">＋</div>
-                <div class="ref-upload-text">Upload element reference</div>
-                <div class="ref-upload-hint">Props, objects, textures</div>
-              </div>
-            </label>
-            <div class="ref-preview-single" id="el-preview-single" style="display:none">
-              <img id="el-preview-img" src="" alt="element ref"/>
-              <button class="ref-preview-remove" onclick="clearRef('element')">× Remove</button>
-            </div>
-            <div class="ref-ai-output" id="el-ai-output" style="display:none">
-              <div class="ref-ai-topbar">
-                <span class="ref-ai-label">✦ AI Prompt</span>
-                <button class="ref-ai-copy" onclick="copyRefAI('element')">Copy</button>
-              </div>
-              <div class="ref-ai-text" id="el-ai-text"></div>
-            </div>
-          </div>
-
-        </div>
-
-      </section>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════════════════════ -->
-  <!-- TAB: REFERENCES FULL VIEW                   -->
-  <!-- ═══════════════════════════════════════════ -->
-  <div id="tab-refs" class="tab-content">
-    <div class="refs-full-grid">
-
-      <!-- Character -->
-      <div class="card ref-full-card">
-        <div class="ref-full-header">
-          <span class="ref-full-icon">👤</span>
-          <div>
-            <div class="ref-full-title">Character Reference</div>
-            <div class="ref-full-sub">Upload a character image — AI generates a prompt instantly</div>
-          </div>
-        </div>
-        <label class="ref-full-zone" for="char-file-input2">
-          <input type="file" accept="image/*" style="display:none" id="char-file-input2" onchange="loadRef('character', event)"/>
-          <div class="ref-full-zone-inner">
-            <div class="ref-full-zone-icon">↑</div>
-            <div>Click or drag & drop a character image</div>
-            <div class="ref-full-zone-hint">JPG, PNG, WEBP</div>
-          </div>
-        </label>
-        <div class="ref-full-preview-wrap" id="char-full-preview-wrap" style="display:none">
-          <img id="char-full-preview-img" src="" alt="character"/>
-          <button class="ref-full-remove-btn" onclick="clearRef('character')">× Remove</button>
-        </div>
-        <div class="ref-full-ai-box" id="char-full-ai-box" style="display:none">
-          <div class="ref-ai-topbar">
-            <span class="ref-ai-label">✦ AI Generated Prompt</span>
-            <button class="ref-ai-copy" onclick="copyRefAI('character')">Copy</button>
-          </div>
-          <div class="ref-full-ai-text" id="char-full-ai-text"></div>
-          <div class="ref-full-ai-actions">
-            <button class="btn-mask-action green" onclick="useRefPrompt('character')">✦ Use in Main Prompt</button>
-            <button class="btn-mask-action" onclick="regenRefAI('character')">↺ Regenerate</button>
-          </div>
-        </div>
-        <div class="ref-tips">
-          <span class="ref-tip">💡 Works best with clear face/body shots</span>
-        </div>
-      </div>
-
-      <!-- Background -->
-      <div class="card ref-full-card">
-        <div class="ref-full-header">
-          <span class="ref-full-icon">🌄</span>
-          <div>
-            <div class="ref-full-title">Background Reference</div>
-            <div class="ref-full-sub">Upload a background image — AI generates a prompt instantly</div>
-          </div>
-        </div>
-        <label class="ref-full-zone" for="bg-file-input2">
-          <input type="file" accept="image/*" style="display:none" id="bg-file-input2" onchange="loadRef('background', event)"/>
-          <div class="ref-full-zone-inner">
-            <div class="ref-full-zone-icon">↑</div>
-            <div>Click or drag & drop a background image</div>
-            <div class="ref-full-zone-hint">JPG, PNG, WEBP</div>
-          </div>
-        </label>
-        <div class="ref-full-preview-wrap" id="bg-full-preview-wrap" style="display:none">
-          <img id="bg-full-preview-img" src="" alt="background"/>
-          <button class="ref-full-remove-btn" onclick="clearRef('background')">× Remove</button>
-        </div>
-        <div class="ref-full-ai-box" id="bg-full-ai-box" style="display:none">
-          <div class="ref-ai-topbar">
-            <span class="ref-ai-label">✦ AI Generated Prompt</span>
-            <button class="ref-ai-copy" onclick="copyRefAI('background')">Copy</button>
-          </div>
-          <div class="ref-full-ai-text" id="bg-full-ai-text"></div>
-          <div class="ref-full-ai-actions">
-            <button class="btn-mask-action green" onclick="useRefPrompt('background')">✦ Use in Main Prompt</button>
-            <button class="btn-mask-action" onclick="regenRefAI('background')">↺ Regenerate</button>
-          </div>
-        </div>
-        <div class="ref-tips">
-          <span class="ref-tip">💡 Landscapes, interiors, cityscapes all work great</span>
-        </div>
-      </div>
-
-      <!-- Element -->
-      <div class="card ref-full-card">
-        <div class="ref-full-header">
-          <span class="ref-full-icon">✦</span>
-          <div>
-            <div class="ref-full-title">Element Reference</div>
-            <div class="ref-full-sub">Upload a prop/object image — AI generates a prompt instantly</div>
-          </div>
-        </div>
-        <label class="ref-full-zone" for="el-file-input2">
-          <input type="file" accept="image/*" style="display:none" id="el-file-input2" onchange="loadRef('element', event)"/>
-          <div class="ref-full-zone-inner">
-            <div class="ref-full-zone-icon">↑</div>
-            <div>Click or drag & drop an element image</div>
-            <div class="ref-full-zone-hint">JPG, PNG, WEBP</div>
-          </div>
-        </label>
-        <div class="ref-full-preview-wrap" id="el-full-preview-wrap" style="display:none">
-          <img id="el-full-preview-img" src="" alt="element"/>
-          <button class="ref-full-remove-btn" onclick="clearRef('element')">× Remove</button>
-        </div>
-        <div class="ref-full-ai-box" id="el-full-ai-box" style="display:none">
-          <div class="ref-ai-topbar">
-            <span class="ref-ai-label">✦ AI Generated Prompt</span>
-            <button class="ref-ai-copy" onclick="copyRefAI('element')">Copy</button>
-          </div>
-          <div class="ref-full-ai-text" id="el-full-ai-text"></div>
-          <div class="ref-full-ai-actions">
-            <button class="btn-mask-action green" onclick="useRefPrompt('element')">✦ Use in Main Prompt</button>
-            <button class="btn-mask-action" onclick="regenRefAI('element')">↺ Regenerate</button>
-          </div>
-        </div>
-        <div class="ref-tips">
-          <span class="ref-tip">💡 Objects, textures, materials, weapons, props</span>
-        </div>
-      </div>
-
-      <!-- Combined -->
-      <div class="card ref-combined-card">
-        <label class="section-label">🔗 Combined Reference Prompt</label>
-        <div class="raw-prompt" id="combined-ref-prompt">
-          <span class="output-placeholder">Upload references — AI prompts will combine here automatically...</span>
-        </div>
-        <div class="ref-combined-actions">
-          <button class="btn-mask-action green" onclick="copyRefPrompt()">📋 Copy Combined Prompt</button>
-          <button class="btn-mask-action green" onclick="useAllRefsInPrompt()">✦ Use All in Main Prompt</button>
-          <button class="btn-mask-action" onclick="clearAllRefs()">🗑 Clear All</button>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════════════════════ -->
-  <!-- TAB 2: IMAGE MASK                           -->
-  <!-- ═══════════════════════════════════════════ -->
-  <div id="tab-mask" class="tab-content">
-    <div class="mask-layout">
-
-      <!-- Left: Controls -->
-      <section class="mask-controls">
-
-        <div class="card">
-          <label class="section-label">📁 Upload Image</label>
-          <label class="upload-zone" id="upload-zone" for="file-input">
-            <div class="upload-icon">↑</div>
-            <div class="upload-text">Click or drag & drop an image</div>
-            <div class="upload-hint">PNG, JPG, WEBP supported</div>
-            <input type="file" id="file-input" accept="image/*" style="display:none" onchange="loadImage(event)"/>
-          </label>
-        </div>
-
-        <div class="card">
-          <label class="section-label">🖌️ Brush Controls</label>
-          <div class="brush-controls">
-            <div class="control-row">
-              <label class="ctrl-label">Brush Size</label>
-              <div class="slider-row">
-                <input type="range" id="brush-size" min="2" max="60" value="10" class="slider" oninput="updateBrush()"/>
-                <span class="slider-val" id="brush-size-val">10px</span>
-              </div>
-            </div>
-            <div class="control-row">
-              <label class="ctrl-label">Brush Color</label>
-              <div class="color-options" id="color-options">
-                <button class="color-dot active" style="background:#ff3b3b" data-color="#ff3b3b" onclick="setBrushColor(this)"></button>
-                <button class="color-dot" style="background:#3b82f6" data-color="#3b82f6" onclick="setBrushColor(this)"></button>
-                <button class="color-dot" style="background:#10b981" data-color="#10b981" onclick="setBrushColor(this)"></button>
-                <button class="color-dot" style="background:#f59e0b" data-color="#f59e0b" onclick="setBrushColor(this)"></button>
-                <button class="color-dot" style="background:#a78bfa" data-color="#a78bfa" onclick="setBrushColor(this)"></button>
-                <button class="color-dot" style="background:#ffffff" data-color="#ffffff" onclick="setBrushColor(this)"></button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card">
-          <label class="section-label">⚙️ Mode</label>
-          <div class="mode-row">
-            <button class="mode-btn active" id="mode-draw" onclick="setMode('draw')">✏️ Draw Mask</button>
-            <button class="mode-btn" id="mode-pan" onclick="setMode('pan')">🖐 Pan / View</button>
-          </div>
-        </div>
-
-        <div class="card">
-          <label class="section-label">🔧 Actions</label>
-          <div class="mask-actions">
-            <button class="btn-mask-action" onclick="undoLast()">↩ Undo Last</button>
-            <button class="btn-mask-action" onclick="clearMask()">🗑 Clear Mask</button>
-            <button class="btn-mask-action green" onclick="exportMask()">⬇ Export Mask</button>
-            <button class="btn-mask-action green" onclick="sendMaskToPrompt()">✦ Use in Prompt</button>
-          </div>
-        </div>
-
-        <div class="card" id="mask-prompt-card" style="display:none">
-          <label class="section-label">✦ Mask Prompt</label>
-          <textarea id="mask-prompt-text" class="subject-input" rows="3" placeholder="Describe what to generate in the masked area..."></textarea>
-          <button class="btn-generate" style="margin-top:10px;width:100%" onclick="generateMaskPrompt()">
-            <span>✦</span> Generate Inpaint Prompt
-          </button>
-        </div>
-
-        <div class="card" id="mask-output-card" style="display:none">
-          <div class="output-topbar">
-            <span class="section-label" style="margin:0">Inpaint Prompt</span>
-            <button class="btn-copy" onclick="copyMaskPrompt()">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-              Copy
-            </button>
-          </div>
-          <div class="output-body" id="mask-output-body" style="min-height:80px"></div>
-        </div>
-
-      </section>
-
-      <!-- Right: Canvas -->
-      <section class="mask-canvas-section">
-        <div class="card canvas-card" id="canvas-card">
-          <div class="canvas-topbar">
-            <span class="section-label" style="margin:0">Canvas</span>
-            <div class="canvas-info" id="canvas-info">No image loaded</div>
-          </div>
-
-          <!-- Empty state -->
-          <div class="canvas-empty" id="canvas-empty">
-            <div class="empty-icon">🖼</div>
-            <div class="empty-text">Upload an image to start masking</div>
-            <label for="file-input" class="btn-upload-cta">Upload Image</label>
-          </div>
-
-          <!-- Canvas wrapper -->
-          <div class="canvas-wrapper" id="canvas-wrapper" style="display:none">
-            <canvas id="mask-canvas"></canvas>
-            <div class="brush-cursor" id="brush-cursor"></div>
-          </div>
-
-          <!-- Stroke counter -->
-          <div class="canvas-footer" id="canvas-footer" style="display:none">
-            <span id="stroke-count">0 strokes</span>
-            <span id="mask-coverage">Coverage: 0%</span>
-          </div>
-        </div>
-      </section>
-
-    </div>
-  </div>
-
-  <footer class="footer">
-    Built with ❤️ · Powered by Gemini AI · <a href="https://github.com/niladrysaha99/prompt-builder" target="_blank">niladrysaha99/prompt-builder</a>
-  </footer>
+<div class="tab active" data-tab="builder">✨ Prompt Builder</div>
+<div class="tab" data-tab="mask">🖌 Image Mask</div>
 
 </div>
 
+
+<!-- ================= PROMPT BUILDER ================= -->
+
+<div class="tab-content active" id="builder">
+
+
+<!-- IMAGE REFERENCES -->
+
+<div class="reference-section">
+
+<div class="upload-box">
+
+<h3>👤 Character Reference</h3>
+<p>Upload a character image — AI generates prompt instantly</p>
+
+<input type="file" id="characterInput" hidden accept="image/*">
+
+<div class="drop-area" data-input="characterInput">
+Click or drag & drop a character image
+<br>JPG PNG WEBP
+</div>
+
+<div class="ai-result" id="characterPrompt"></div>
+
+</div>
+
+
+<div class="upload-box">
+
+<h3>🌄 Background Reference</h3>
+<p>Upload a background image — AI generates prompt instantly</p>
+
+<input type="file" id="backgroundInput" hidden accept="image/*">
+
+<div class="drop-area" data-input="backgroundInput">
+Click or drag & drop a background image
+<br>JPG PNG WEBP
+</div>
+
+<div class="ai-result" id="backgroundPrompt"></div>
+
+</div>
+
+
+<div class="upload-box">
+
+<h3>✦ Element Reference</h3>
+<p>Upload a prop/object image — AI generates prompt instantly</p>
+
+<input type="file" id="elementInput" hidden accept="image/*">
+
+<div class="drop-area" data-input="elementInput">
+Click or drag & drop an element image
+<br>JPG PNG WEBP
+</div>
+
+<div class="ai-result" id="elementPrompt"></div>
+
+</div>
+
+</div>
+
+
+
+<!-- SUBJECT -->
+
+<div class="input-group">
+
+<label>Subject</label>
+
+<input
+type="text"
+id="subjectInput"
+placeholder="Example: futuristic samurai warrior"
+/>
+
+</div>
+
+
+<button id="generatePrompt">Generate Prompt</button>
+
+
+
+<!-- FINAL PROMPT -->
+
+<div class="prompt-output">
+
+<h3>Final Prompt</h3>
+
+<pre id="promptOutput"></pre>
+
+</div>
+
+
+</div>
+
+
+
+<!-- ================= IMAGE MASK ================= -->
+
+<div class="tab-content" id="mask">
+
+<h2>Image Mask Tool</h2>
+
+<p>Mask canvas can be added later.</p>
+
+</div>
+
+
+</div>
+
+
 <script src="js/app.js"></script>
-<script src="js/mask.js"></script>
+
 </body>
 </html>
